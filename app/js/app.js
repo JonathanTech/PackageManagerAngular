@@ -2,27 +2,20 @@
 
 /* App Module */
 
-var phonecatApp = angular.module('phonecatApp', [
-  'ngRoute',
-  'phonecatAnimations',
+var app = angular.module('app', [ ]);
 
-  'phonecatControllers',
-  'phonecatFilters',
-  'phonecatServices'
-]);
 
-phonecatApp.config(['$routeProvider',
-  function($routeProvider) {
-    $routeProvider.
-      when('/phones', {
-        templateUrl: 'partials/phone-list.html',
-        controller: 'PhoneListCtrl'
-      }).
-      when('/phones/:phoneId', {
-        templateUrl: 'partials/phone-detail.html',
-        controller: 'PhoneDetailCtrl'
-      }).
-      otherwise({
-        redirectTo: '/phones'
-      });
-  }]);
+app.controller('mainController', ['$scope','ParsePackageDependenciesService',
+    function($scope, ParsePackageDependenciesService) {
+        $scope.change = function(){
+            $scope.output = ParsePackageDependenciesService.parse($scope.input);
+        }
+    }]);
+
+app.factory('ParsePackageDependenciesService', function(){
+    var parse = function(a){return a;}
+
+    return{
+        parse:parse
+    }
+})
